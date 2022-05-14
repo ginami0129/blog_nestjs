@@ -1,9 +1,8 @@
 import * as Joi from '@hapi/joi';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { DatabaseModule } from './database/database.module';
+import { PostModule } from './post/post.module';
 
 @Module({
   imports: [
@@ -18,8 +17,9 @@ import { DatabaseModule } from './database/database.module';
       }),
     }),
     DatabaseModule,
+    PostModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}
