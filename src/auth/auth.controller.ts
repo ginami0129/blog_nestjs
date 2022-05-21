@@ -7,9 +7,14 @@ import {
   Param,
   Delete,
   Req,
+  UseGuards,
+  HttpCode,
 } from '@nestjs/common';
 import { CreateUserDto } from 'src/user/dto/create-user.dto';
 import { AuthService } from './auth.service';
+import { LocalStrategy } from './local.strategy';
+import { LocalAuthGuard } from './localAuth.guard';
+import { RequestWithUser } from './requestWithUser.interface';
 
 @Controller('auth')
 export class AuthController {
@@ -21,7 +26,9 @@ export class AuthController {
   }
 
   @Post('login')
-  async login(@Body() userInput: any) {
-    return this.authService.getAuthedUser(userInput.email, userInput.password);
+  @UseGuards(LocalAuthGuard)
+  async login(@Req() req: RequestWithUser) {
+    const user = req.user;
+    return user;
   }
 }
