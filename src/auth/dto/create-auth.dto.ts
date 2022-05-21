@@ -1,5 +1,5 @@
 export class CreateAuthDto {
   email: string;
-  name: string;
+  // name: string;
   password: string;
 }
