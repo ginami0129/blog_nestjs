@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { BeforeInsert, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class User {
@@ -13,4 +13,6 @@ export class User {
 
   @Column()
   public password: string;
+  //TODO: 암호화 되는 부분
+  // @BeforeInsert()
 }
