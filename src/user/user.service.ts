@@ -35,4 +35,13 @@ export class UserService {
     await this.userRepo.save(newUser);
     return newUser;
   }
+
+  async markEmailAsConfirmed(email: string) {
+    return this.userRepo.update(
+      { email },
+      {
+        isEmailConfirmed: true,
+      },
+    );
+  }
 }

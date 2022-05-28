@@ -11,21 +11,33 @@ import {
   HttpCode,
   Res,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { response, Response } from 'express';
+import { EmailConfirmedService } from 'src/email-confirmed/email-confirmed.service';
 import { CreateUserDto } from 'src/user/dto/create-user.dto';
+import { UserService } from 'src/user/user.service';
 import { AuthService } from './auth.service';
 import JwtAuthGuard from './jwtAuth.guard';
 import { LocalStrategy } from './local.strategy';
 import { LocalAuthGuard } from './localAuth.guard';
 import { RequestWithUser } from './requestWithUser.interface';
 
+@ApiTags('auth')
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(
+    private readonly authService: AuthService,
+    private readonly emailConfirmedService: EmailConfirmedService,
+    private readonly userService: UserService,
+  ) {}
 
   @Post()
   async registor(@Body() userInput: CreateUserDto) {
-    return this.authService.register(userInput);
+    // return this.authService.register(userInput);
+    const user = await this.authService.register(userInput);
+    console.log(user);
+    await this.emailConfirmedService.sendVerificationLink(user.email);
+    return user;
   }
 
   @Post('login')
