@@ -7,6 +7,7 @@ import { LocalStrategy } from './local.strategy';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './jwt.strategy';
+import { EmailConfirmedModule } from 'src/email-confirmed/email-confirmed.module';
 
 @Module({
   // imports: [
@@ -40,6 +41,7 @@ import { JwtStrategy } from './jwt.strategy';
         },
       }),
     }),
+    EmailConfirmedModule,
   ],
   providers: [AuthService, LocalStrategy, JwtStrategy],
   controllers: [AuthController],

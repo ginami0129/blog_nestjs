@@ -23,6 +23,12 @@ export class User {
 
   @Column()
   public profileImg?: string;
+
+  @Column({
+    default: false,
+  })
+  public isEmailConfirmed: boolean;
+
   // TODO: 암호화 되는 부분
   // @BeforeInsert()
   @BeforeInsert()

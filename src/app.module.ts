@@ -5,6 +5,8 @@ import { DatabaseModule } from './database/database.module';
 import { PostModule } from './post/post.module';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
+import { EmailModule } from './email/email.module';
+import { EmailConfirmedModule } from './email-confirmed/email-confirmed.module';
 
 @Module({
   imports: [
@@ -18,12 +20,20 @@ import { AuthModule } from './auth/auth.module';
         PORT: Joi.number().required(),
         JWT_SECRET: Joi.string().required(),
         JWT_EXPIRATION_TIME: Joi.string().required(),
+        EMAIL_SERVICE: Joi.string().required(),
+        EMAIL_USER: Joi.string().required(),
+        EMAIL_PASSWORD: Joi.string().required(),
+        JWT_VERIFICATION_TOKEN_SECRET: Joi.string().required(),
+        JWT_EMAIL_EXPIRATION_TIME: Joi.number().required(),
+        EMAIL_CONFIRMATION_URL: Joi.string().required(),
       }),
     }),
     DatabaseModule,
     PostModule,
     UserModule,
     AuthModule,
+    EmailModule,
+    EmailConfirmedModule,
   ],
   controllers: [],
   providers: [],
