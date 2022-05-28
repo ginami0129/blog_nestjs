@@ -56,4 +56,12 @@ export class EmailConfirmedService {
       throw new BadRequestException('Token Error');
     }
   }
+
+  public async resendEmailConfirmLink(userId: string) {
+    const user = await this.userService.getById(userId);
+    if (user.isEmailConfirmed) {
+      throw new BadRequestException('Email Already Confirmed');
+    }
+    await this.sendVerificationLink(user.email);
+  }
 }

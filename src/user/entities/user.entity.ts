@@ -6,6 +6,7 @@ import {
 import { BeforeInsert, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import * as gravatar from 'gravatar';
+import Role from '../role.enums';
 
 @Entity()
 export class User {
@@ -28,6 +29,14 @@ export class User {
     default: false,
   })
   public isEmailConfirmed: boolean;
+
+  @Column({
+    type: 'enum',
+    enum: Role,
+    array: true,
+    default: [Role.USER],
+  })
+  public roles: Role[];
 
   // TODO: 암호화 되는 부분
   // @BeforeInsert()
