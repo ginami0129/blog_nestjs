@@ -1,5 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { User } from 'src/user/entities/user.entity';
 import { Repository } from 'typeorm';
 import { CreatePostDto } from './dto/create-post.dto';
 import { Post } from './entities/post.entity';
@@ -23,9 +24,9 @@ export class PostService {
     throw new HttpException('Post not found', HttpStatus.NOT_FOUND);
   }
 
-  async createPost(post: CreatePostDto) {
+  async createPost(post: CreatePostDto, user: User) {
     const newPost = await this.postsRepo.create(post);
-    await this.postsRepo.save(newPost);
+    await this.postsRepo.save({ ...newPost, user });
     return newPost;
   }
 

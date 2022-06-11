@@ -3,10 +3,17 @@ import {
   HttpStatus,
   InternalServerErrorException,
 } from '@nestjs/common';
-import { BeforeInsert, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  BeforeInsert,
+  Column,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import * as gravatar from 'gravatar';
 import Role from '../role.enums';
+import { Post } from 'src/post/entities/post.entity';
 
 @Entity()
 export class User {
@@ -37,6 +44,9 @@ export class User {
     default: [Role.USER],
   })
   public roles: Role[];
+
+  @OneToMany(() => Post, (post: Post) => post.user)
+  public posts?: Post[];
 
   // TODO: 암호화 되는 부분
   // @BeforeInsert()
