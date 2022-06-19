@@ -25,6 +25,7 @@ export class EmailConfirmedService {
       this.configService.get('EMAIL_CONFIRMATION_URL') + `?token=${token}}`;
     const text = `Welcome to my blog, please confirm your email address, click here ${url}`;
     return this.emailService.sendMail({
+      from: 'ginami0129n@naver.com',
       to: email,
       subject: 'email confirm',
       text,
